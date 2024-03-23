@@ -61,14 +61,14 @@ export default function Home() {
             <th className='md:w-40 '>Name</th>
             <th className='md:w-40 md:pl-0 pl-5'>Link</th>
           </tr>
-          {followers.map((items, i) => { 
+          {/* {followers.map((items, i) => { 
            return<tr key={i} className='h-14 bg-gray-700 rounded-3xl'>
               <td className='md:w-40 pl-5 md:pl-16'>{items.id}</td>
               <td className='md:w-40  mx-auto pl-12'><img src={items.avatar_url} alt="" width={40} className='my-auto rounded-full' /></td>
               <td className='md:w-40 pl-16 pr-4'>{items.login}</td>
               <td className='md:w-40  pr-4 hover:text-blue-600'><button className='text-white bg-blue-500 hover:bg-blue-700 rounded-lg px-2 py-1 my-2 mx-5 w-32' onClick={()=>getFollowersData(items.login)}>get Followers</button></td>
             </tr>
-            })} 
+            })}  */}
         </table>}
       </div>
   </div>
