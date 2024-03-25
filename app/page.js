@@ -6,6 +6,7 @@ export default function Home() {
   let [userName,setUserName]=useState("")
   let [data,setData]=useState();
   let [followers,setFollowers]=useState([])
+  let [newData,setNewData]=useState()
  const onChangeHandler=(e)=>{
     setUserName(e.target.value)
     console.log(e.target.value)
@@ -16,9 +17,11 @@ export default function Home() {
       method:"GET"
      })
      response=await response.json()
-     console.log(response)
+     console.log(response.login.toLowerCase())
      setData(response)
+     
   }
+  
   const getFollowers=async()=>{
     
      let response1=await fetch(data.followers_url,{method:"GET"})
@@ -32,7 +35,10 @@ export default function Home() {
     response2=await response2.json()
     console.log(response2)
     setData(response2)
+    setNewData(response2)
   }
+  
+  
   return (
   <div>
   <h1 className='text-4xl text-center font-bold py-2 linear-gradient-to-r from-slate-200 to-red-500'>Search GitHub Data</h1>
@@ -40,15 +46,20 @@ export default function Home() {
       <div className='flex flex-col text-center mt-5'>
         <label htmlFor="name" className='text-xl font-semibold'>Enter UserName and GetData</label>
         <input type="text" id='name' onChange={onChangeHandler} placeholder='Enter Github user' className='text-slate-700 bg-slate-200 rounded-lg px-2 mx-auto w-52 py-1 my-2 border border-black' />
-        <button onClick={clickHandler} className='mx-auto bg-blue-500 w-40 text-white my-2 rounded-lg px-2 py-1 hover:bg-blue-700'>Search Data</button><br />
+        <button onClick={ clickHandler} className='mx-auto bg-blue-500 w-40 text-white my-2 rounded-lg px-2 py-1 hover:bg-blue-700'>Search Data</button><br />
       </div>
       <hr />
+      
        {data &&<div className='md:mt-8 mt-5 flex content-center justify-center'>
+         {data.login.toLowerCase() ===userName||newData?<> 
         <img src={data.avatar_url} alt="" className='rounded-full w-36 ' />
         <div className='flex flex-col align-center my-auto px-5'><span className='text-3xl font-semibold'> {data.name}</span>
           <span className='text-xl'>Followers: {data.followers} <span className='text-xl md:relative md:left-10'>Following: {data.following}</span></span>
           <button className='text-white bg-blue-500 hover:bg-blue-700 rounded-lg px-2 py-1 my-2' onClick={getFollowers}>Get Followers</button>
         </div>
+       </>:<div className="text-xl font-bold">User Not Found</div>
+      } 
+      
         <br />
         <hr />
       </div>}
